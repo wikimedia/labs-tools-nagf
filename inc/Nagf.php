@@ -59,6 +59,31 @@ class Nagf {
 				),
 				'overview' => 'sum',
 			),
+			'load' => array(
+				'title' => 'Load Average',
+				'targets' => array(
+					'alias(color(HOST.loadavg.01,"#bbbbbb"),"1-min")',
+					'alias(color(HOST.loadavg.05,"#ffea00"),"5-min")',
+					'alias(color(HOST.loadavg.15,"#33cc33"),"15-min")',
+				),
+				'overview' => array(
+					'alias(color(sum(HOST.loadavg.01),"#bbbbbb"),"1-min")',
+					'alias(color(sum(HOST.loadavg.05),"#ffea00"),"5-min")',
+					'alias(color(sum(HOST.loadavg.15),"#33cc33"),"15-min")',
+					'alias(color(sum(offset(scale(HOST.loadavg.01,0),1)),"green"),"Nodes")',
+				),
+			),
+			'process' => array(
+				'title' => 'Processes',
+				'targets' => array(
+					'alias(HOST.loadavg.processes_running,"Procs running")',
+					'alias(secondYAxis(HOST.loadavg.processes_total),"Procs total")',
+				),
+				'overview' => array(
+					'alias(sum(HOST.loadavg.processes_running),"Procs running")',
+					'alias(secondYAxis(sum(HOST.loadavg.processes_total)),"Procs total")',
+				),
+			),
 			'memory' => array(
 				'title' => 'Memory',
 				'targets' => array(
