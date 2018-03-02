@@ -41,7 +41,10 @@ class NagfView {
 				$title = $host;
 			}
 			$html .= '<optgroup label="' . htmlspecialchars($title) . '">';
-			foreach ($graphConfigs as $graphID => &$graph) {
+			foreach ($graphConfigs as $graphID => $graph) {
+				if ($host === 'overview' && $graph['overview'] === false) {
+					continue;
+				}
 				$html .= '<option value="h_' . htmlspecialchars("{$host}_{$graphID}") . '">'
 					. htmlspecialchars($graph['title'])
 					. '</option>';
@@ -135,12 +138,12 @@ class NagfView {
 				$hostTarget = $hostName;
 			}
 			$html .= '<h3 id="h_' . htmlspecialchars($hostName) . '">' . htmlspecialchars($hostTitle) . '</h3>';
-			foreach ($graphConfigs as $graphID => &$graph) {
-				$html .= '<h4 id="h_' . htmlspecialchars("{$hostName}_{$graphID}") . '">'
-					. htmlspecialchars("$hostTitle {$graph['title']}")
-					. '</h4>';
+			foreach ($graphConfigs as $graphID => $graph) {
 
 				if ($hostName === 'overview') {
+					if ($graph['overview'] === false) {
+						continue;
+					}
 					if (is_array($graph['overview'])) {
 						$targets = $graph['overview'];
 					} else {
@@ -149,7 +152,9 @@ class NagfView {
 							return preg_replace('/HOST([^\),]+)/', $graph['overview'] . '(HOST$1)', $target);
 						}, $graph['targets']);
 					}
-					$renderOptions = array();
+					$renderOptions = isset( $graph['overview-render'] )
+						? $graph['overview-render']
+						: isset( $graph['render'] ) ? $graph['render'] : array();
 				} else {
 					$targets = $graph['targets'];
 					$renderOptions = isset( $graph['render'] ) ? $graph['render'] : array();
@@ -159,6 +164,10 @@ class NagfView {
 				foreach ($targets as $target) {
 					$targetQuery .= '&target=' . urlencode(str_replace('HOST', "$project.$hostTarget", $target));
 				}
+
+				$html .= '<h4 id="h_' . htmlspecialchars("{$hostName}_{$graphID}") . '">'
+					. htmlspecialchars("$hostTitle {$graph['title']}")
+					. '</h4>';
 
 				foreach ($this->data->ranges as $range => $checked) {
 					if (!$checked) {

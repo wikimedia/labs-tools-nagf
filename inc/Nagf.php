@@ -58,6 +58,7 @@ class Nagf {
 					'yMax' => 100,
 				),
 				'overview' => 'sum',
+				'overview-render' => array(),
 			),
 			'load' => array(
 				'title' => 'Load Average',
@@ -107,15 +108,27 @@ class Nagf {
 					'alias(color(sum(HOST.memory.MemTotal),"red"),"Total")',
 				),
 			),
-			'disk' => array(
-				'title' => 'Disk space',
+			'disk-bytes' => array(
+				'title' => 'Disk space free (in bytes)',
 				'targets' => array(
 					'aliasByNode(maximumAbove(HOST.diskspace.*.byte_avail,0),-3,-2)',
 				),
-				'overview' => array(
-					'alias(stacked(sum(HOST.diskspace.*.byte_avail)),"byte_avail")',
+				'overview' => false,
+				'render' => array(
+					'yMin' => 0,
 				),
-				'overview' => 'sum',
+			),
+			'disk-inodes' => array(
+				'title' => 'Disk space free (% of inodes)',
+				'targets' => array(
+					'aliasByNode(maximumAbove(HOST.diskspace.*.inodes_percentfree,0),-3,-2)',
+				),
+				'overview' => array(
+					'aliasByNode(maximumAbove(HOST.diskspace.*.inodes_percentfree,0),1,-2)',
+				),
+				'render' => array(
+					'yMin' => 0,
+				),
 			),
 			'network-bytes' => array(
 				'title' => 'Network bytes',
