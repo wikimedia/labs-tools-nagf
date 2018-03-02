@@ -120,10 +120,11 @@ class NagfView {
 
 	/**
 	 * @param string $project
-	 * @param Array $hosts
+	 * @param array $hosts
+	 * @param array $graphConfigs
 	 * @return string HTML
 	 */
-	protected function getProjectPage($project, Array $hosts, Array $graphConfigs) {
+	protected function getProjectPage($project, array $hosts, array $graphConfigs) {
 		$html = '<h1>' . htmlspecialchars($project) . '</h1>';
 
 		array_unshift($hosts, 'overview');
@@ -139,7 +140,6 @@ class NagfView {
 			}
 			$html .= '<h3 id="h_' . htmlspecialchars($hostName) . '">' . htmlspecialchars($hostTitle) . '</h3>';
 			foreach ($graphConfigs as $graphID => $graph) {
-
 				if ($hostName === 'overview') {
 					if ($graph['overview'] === false) {
 						continue;
@@ -152,12 +152,12 @@ class NagfView {
 							return preg_replace('/HOST([^\),]+)/', $graph['overview'] . '(HOST$1)', $target);
 						}, $graph['targets']);
 					}
-					$renderOptions = isset( $graph['overview-render'] )
+					$renderOptions = isset($graph['overview-render'])
 						? $graph['overview-render']
-						: isset( $graph['render'] ) ? $graph['render'] : array();
+						: isset($graph['render']) ? $graph['render'] : array();
 				} else {
 					$targets = $graph['targets'];
-					$renderOptions = isset( $graph['render'] ) ? $graph['render'] : array();
+					$renderOptions = isset($graph['render']) ? $graph['render'] : array();
 				}
 
 				$targetQuery = '';
