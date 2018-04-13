@@ -2,18 +2,25 @@
 class WebCache {
 
 	/**
+	 * @param string $segment
+	 * @return string
+	 */
+	public static function escapeKeySegment($segment) {
+		return preg_replace_callback('/[^a-zA-Z0-9_\-]/', function ($match) {
+			return strtr(rawurlencode($match[0]), [ '%' => '_' ]);
+		}, $segment);
+	}
+
+	/**
 	 * @param string $key
 	 * @return bool
 	 */
-	private static function validKey($key) {
-		return preg_match('/^[a-z0-9\-]+$/', $key);
+	public static function validKey($key) {
+		return preg_match('/^[a-zA-Z0-9_\-]+$/', $key) === 1;
 	}
 
 	/**
 	 * Get string data from a url (or cache).
-	 *
-	 * TODO: Migrate to using Krinkle/toollabs-base and its Cache system.
-	 * https://github.com/Krinkle/toollabs-base/blob/v0.5.0/src/Cache.php
 	 *
 	 * @param string $key
 	 * @param string $url
@@ -43,7 +50,12 @@ class WebCache {
 		}
 
 		// Fetch fresh copy from remote
-		$value = file_get_contents($url);
+		$context = stream_context_create(array(
+			'http' => array(
+				'user_agent' => 'WebCache.php (package: github.com/wikimedia/nagf)'
+			)
+		));
+		$value = file_get_contents($url, false, $context);
 		if ($value === false) {
 			if ($hasCache) {
 				// Keep using cache for now, remote failed

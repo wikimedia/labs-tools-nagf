@@ -5,19 +5,15 @@ class Graphite {
 	 */
 	public static function getProjects() {
 		$json = WebCache::get(
-			'wikitech-v1-projects',
-			'https://wikitech.wikimedia.org/w/api.php?format=json&'
-			. http_build_query(array(
-				'action' => 'query',
-				'list' => 'novaprojects',
-			))
+			'wmcloud-projects',
+			'https://tools.wmflabs.org/openstack-browser/api/projects.json'
 		);
 		$data = json_decode($json);
-		if (!isset($data->query->novaprojects)) {
+		if (!isset($data->projects)) {
 			return array();
 		}
-		sort($data->query->novaprojects);
-		return $data->query->novaprojects;
+		sort($data->projects);
+		return $data->projects;
 	}
 
 	/**
@@ -25,25 +21,22 @@ class Graphite {
 	 * @return array
 	 */
 	public static function getHostsForProject($project) {
-		$json = WebCache::get(
-			'wikitech-v1-' . $project,
-			'https://wikitech.wikimedia.org/w/api.php?format=json&'
-			. http_build_query(array(
-				'action' => 'query',
-				'list' => 'novainstances',
-				// TODO: Don't hardcode eqiad (https://phabricator.wikimedia.org/T94514)
-				'niregion' => 'eqiad',
-				'niproject' => $project,
-			))
+		$txt = WebCache::get(
+			'wmcloud-hosts-' . WebCache::escapeKeySegment($project),
+			'https://tools.wmflabs.org/openstack-browser/api/dsh/project/'
+			. rawurlencode($project)
 		);
-		$data = json_decode($json);
-		if (!isset($data->query->novainstances)) {
+		if (!is_string($txt)) {
 			return array();
 		}
-		$instances = array_map(function ($obj) {
-			return $obj->name;
-		}, $data->query->novainstances);
-		sort($instances);
-		return $instances;
+		$list = [];
+		foreach (explode("\n", $txt) as $line) {
+			$line = trim($line);
+			if ($line !== '') {
+				$list[] = $line;
+			}
+		}
+		sort($list);
+		return $list;
 	}
 }

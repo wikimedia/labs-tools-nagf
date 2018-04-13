@@ -1,4 +1,5 @@
-cache/*
-composer.lock
-vendor
-node_modules
+/cache/*
+/composer.lock
+/coverage
+/node_modules
+/vendor

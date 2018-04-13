@@ -1,9 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../inc/WebCache.php';
-require_once __DIR__ . '/../inc/Graphite.php';
-require_once __DIR__ . '/../inc/NagfView.php';
-require_once __DIR__ . '/../inc/Nagf.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 header('content-type: text/html; charset=utf-8');
 
