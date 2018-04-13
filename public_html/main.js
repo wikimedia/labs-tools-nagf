@@ -1,4 +1,5 @@
 ( function () {
+	var $rangeUpdate;
 
 	$( '.nagf-select-project' ).on( 'change', function () {
 		location.href = './?project=' + this.value;
@@ -21,7 +22,7 @@
 		$.cookie( 'nagf-range', ranges.join( '!' ) );
 	}
 
-	var $rangeUpdate = $( '#nagf-select-range-update' ).on( 'click', function ( e ) {
+	$rangeUpdate = $( '#nagf-select-range-update' ).on( 'click', function ( e ) {
 		e.preventDefault();
 		location.reload();
 	} );
