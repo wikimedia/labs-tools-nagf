@@ -7,9 +7,7 @@ header('content-type: text/html; charset=utf-8');
 try {
 	$app = new Nagf();
 	$view = $app->getView();
-	$html = $view->output();
+	echo $view->output();
 } catch (Exception $e) {
-	$html = NagfView::error($e);
+	NagfView::error($e);
 }
-
-echo $html;
