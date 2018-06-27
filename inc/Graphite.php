@@ -31,9 +31,13 @@ class Graphite {
 		}
 		$list = [];
 		foreach (explode("\n", $txt) as $line) {
-			$line = trim($line);
-			if ($line !== '') {
-				$list[] = $line;
+			$fqdn = trim($line);
+			if ($fqdn !== '') {
+				$chunks = explode('.', $fqdn);
+				// <hostname>.<novaproject>.<region>.<domain>
+				// e.g. "webperf11.beta.eqiad.wmflabs"
+				$hostname = implode('.', array_slice($chunks, 0, -3));
+				$list[] = $hostname;
 			}
 		}
 		sort($list);
