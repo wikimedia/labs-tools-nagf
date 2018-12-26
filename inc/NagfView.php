@@ -223,7 +223,7 @@ class NagfView {
 <link rel="stylesheet" href="./lib/bootstrap-3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="./main.css">
 <script>
-if ( window.URL && window.URLSearchParams ) {
+if ( document.querySelector && window.URLSearchParams ) {
 	document.documentElement.className =
 document.documentElement.className.replace( /(^|\s)no-js(\s|$)/, '$1js$2' );
 }
@@ -250,7 +250,7 @@ document.documentElement.className.replace( /(^|\s)no-js(\s|$)/, '$1js$2' );
 <div class="container">
 {$pageHtml}
 </div>
-<script defer src="./lib/jquery-1.11.2/jquery.min.js"></script>
+<script defer src="./lib/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="></script>
 <script defer src="./lib/bootstrap-3.3.4/js/bootstrap.min.js"></script>
 <script defer src="./main.js"></script>
 <footer class="nagf-footer" role="contentinfo">

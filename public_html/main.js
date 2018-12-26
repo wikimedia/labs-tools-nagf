@@ -1,6 +1,6 @@
 ( function () {
 	var params, $rangeUpdate;
-	if ( !window.URL || !window.URLSearchParams ) {
+	if ( !document.querySelector || !window.URLSearchParams ) {
 		return;
 	}
 
