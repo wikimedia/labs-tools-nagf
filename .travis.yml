@@ -1,9 +1,8 @@
-sudo: false
 language: php
 php:
+  - "7.3"
   - "7.2" # Toolforge k8s webservice
   - "7.1"
-  - "7.0"
 install:
   - composer install
   - npm install

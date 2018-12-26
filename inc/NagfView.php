@@ -256,7 +256,7 @@ document.documentElement.className.replace( /(^|\s)no-js(\s|$)/, '$1js$2' );
 <footer class="nagf-footer" role="contentinfo">
 	<div class="container">
 		<p>Created by <a href="https://github.com/Krinkle">@Krinkle</a>.</p>
-		<p>Code licensed under <a href="http://krinkle.mit-license.org/">MIT</a>.</p>
+		<p>Code licensed under MIT.</p>
 		<ul class="nagf-footer-links">
 			<li><a href="https://github.com/wikimedia/nagf">Source repository</a></li>
 			<li>·</li>
