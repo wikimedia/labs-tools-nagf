@@ -218,12 +218,15 @@ class NagfView {
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US" class="no-js">
 <head>
-	<meta charset="utf-8">
-	<title>{$titleHtml}</title>
-	<link rel="stylesheet" href="./lib/bootstrap-3.3.4/css/bootstrap.min.css">
-	<link rel="stylesheet" href="./main.css">
-<script>document.documentElement.className =
+<meta charset="utf-8">
+<title>{$titleHtml}</title>
+<link rel="stylesheet" href="./lib/bootstrap-3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="./main.css">
+<script>
+if ( window.URL && window.URLSearchParams ) {
+	document.documentElement.className =
 document.documentElement.className.replace( /(^|\s)no-js(\s|$)/, '$1js$2' );
+}
 </script>
 </head>
 <body>
@@ -247,10 +250,9 @@ document.documentElement.className.replace( /(^|\s)no-js(\s|$)/, '$1js$2' );
 <div class="container">
 {$pageHtml}
 </div>
-<script src="./lib/jquery-1.11.2/jquery.min.js"></script>
-<script src="./lib/bootstrap-3.3.4/js/bootstrap.min.js"></script>
-<script src="./lib/jquery-cookie/jquery.cookie.js"></script>
-<script src="./main.js"></script>
+<script defer src="./lib/jquery-1.11.2/jquery.min.js"></script>
+<script defer src="./lib/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+<script defer src="./main.js"></script>
 <footer class="nagf-footer" role="contentinfo">
 	<div class="container">
 		<p>Created by <a href="https://github.com/Krinkle">@Krinkle</a>.</p>

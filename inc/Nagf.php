@@ -28,8 +28,8 @@ class Nagf {
 		// NB: Keywords must be compatible with Graphites "from" param (See NagfView::getProjectPage)
 		$ranges = array('day', 'week', 'month', 'year');
 		// Filter out invalid ranges and ensure we have at least one of them selected
-		$cookieRange = isset($_COOKIE['nagf-range']) ? explode('!', $_COOKIE['nagf-range']) : array();
-		$checked = array_intersect($ranges, $cookieRange) ?: array( 'day' );
+		$setRanges = isset($_GET['range']) ? explode('-', $_GET['range']) : array();
+		$checked = array_intersect($ranges, $setRanges) ?: array( 'day' );
 
 		$viewData->ranges = array();
 		foreach ($ranges as $range) {

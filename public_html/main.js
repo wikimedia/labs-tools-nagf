@@ -1,8 +1,14 @@
 ( function () {
-	var $rangeUpdate;
+	var params, $rangeUpdate;
+	if ( !window.URL || !window.URLSearchParams ) {
+		return;
+	}
+
+	params = new URLSearchParams( location.search );
 
 	$( '.nagf-select-project' ).on( 'change', function () {
-		location.href = './?project=' + this.value;
+		params.set( 'project', this.value );
+		location.search = params.toString();
 	} );
 
 	$( '.nagf-select-metric' ).on( 'change', function () {
@@ -10,21 +16,25 @@
 	} );
 
 	function updateRanges( value, action ) {
-		var val = $.cookie( 'nagf-range' ),
-			ranges = val ? val.split( '!' ) : [],
-			idx = $.inArray( value, ranges );
+		var val = params.get( 'range' ),
+			ranges = val ? val.split( '-' ) : [ 'day' ],
+			idx = ranges.indexOf( value );
 
 		if ( action === 'add' && idx === -1 ) {
 			ranges.push( value );
 		} else if ( action === 'remove' && idx !== -1 ) {
 			ranges.splice( idx, 1 );
 		}
-		$.cookie( 'nagf-range', ranges.join( '!' ) );
+		if ( ranges.length ) {
+			params.set( 'range', ranges.join( '-' ) );
+		} else {
+			params.delete( 'range' );
+		}
 	}
 
 	$rangeUpdate = $( '#nagf-select-range-update' ).on( 'click', function ( e ) {
 		e.preventDefault();
-		location.reload();
+		location.search = params.toString();
 	} );
 
 	$( '.nagf-select-range' ).on( 'change', function () {
