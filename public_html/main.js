@@ -1,5 +1,5 @@
 ( function () {
-	var params, $rangeUpdate;
+	var params, ranges, $rangeUpdate;
 	if ( !document.querySelector || !window.URLSearchParams ) {
 		return;
 	}
@@ -16,9 +16,13 @@
 	} );
 
 	function updateRanges( value, action ) {
-		var val = params.get( 'range' ),
-			ranges = val ? val.split( '-' ) : [ 'day' ],
-			idx = ranges.indexOf( value );
+		var val, idx;
+		if ( !ranges ) {
+			val = params.get( 'range' );
+			ranges = val ? val.split( '-' ) : [ 'day' ];
+		}
+
+		idx = ranges.indexOf( value );
 
 		if ( action === 'add' && idx === -1 ) {
 			ranges.push( value );
