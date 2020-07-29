@@ -174,7 +174,7 @@ class NagfView {
 						continue;
 					}
 					$title = "$hostTitle {$graph['title']} last {$range}";
-					$html .= '<img width="800" height="250" src="//graphite-labs.wikimedia.org/render/?'
+					$html .= '<img width="800" height="250" src="https://graphite-labs.wikimedia.org/render/?'
 						. htmlspecialchars(http_build_query(array(
 							'title' => $title,
 							'width' => 800,
@@ -255,12 +255,12 @@ document.documentElement.className.replace( /(^|\s)no-js(\s|$)/, '$1js$2' );
 <script defer src="./main.js"></script>
 <footer class="nagf-footer" role="contentinfo">
 	<div class="container">
-		<p>Created by <a href="https://github.com/Krinkle">@Krinkle</a>.</p>
+		<p>Created by <a href="https://timotijhof.net/">Krinkle</a>.</p>
 		<p>Code licensed under MIT.</p>
 		<ul class="nagf-footer-links">
-			<li><a href="https://github.com/wikimedia/nagf">Source repository</a></li>
+			<li><a href="https://gerrit.wikimedia.org/g/labs/tools/nagf">Source repository</a></li>
 			<li>·</li>
-			<li><a href="https://github.com/wikimedia/nagf/issues">Issue tracker</a></li>
+			<li><a href="https://phabricator.wikimedia.org/project/board/4910/">Issue tracker</a></li>
 		</ul>
 	</div>
 </footer>

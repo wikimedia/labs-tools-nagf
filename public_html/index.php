@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../inc/autoload.php';
 
-header('content-type: text/html; charset=utf-8');
+header('Content-Type: text/html; charset=utf-8');
 
 try {
 	$app = new Nagf();
