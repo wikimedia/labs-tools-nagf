@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../inc/autoload.php';
 
 header('content-type: text/html; charset=utf-8');
 

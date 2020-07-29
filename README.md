@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.org/wikimedia/nagf.svg?branch=master)](https://travis-ci.org/wikimedia/nagf)
+# Nagf: Not another Graphite frontend
 
-# Nagf
+## Local development
 
-## Set up
+* Required: PHP 7.2 or later.
+* No dependencies.
 
-* `git clone https://github.com/wikimedia/nagf.git`
-* `chmod 777 cache/`
-* `ln -s path/to/nagf/public_html public_html`
+Run  `composer serve` (or `php -S localhost:4000 -t public_html/`),
+and view <http://localhost:4000>.
